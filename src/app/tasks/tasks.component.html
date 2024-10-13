@@ -1,0 +1,45 @@
+<div class="htmll">
+  <div class="taskBox">
+    <div class="searchBox" [formGroup]="updateForm">
+      <input [(ngModel)]="inpValue" type="text" placeholder="Add New Task" formControlName="task" (keyup.enter)="add()" />
+      <button mat-raised-button class="button" color="warn" (click)="add()"
+      [disabled]="updateForm.invalid">Add
+      </button>
+    </div>
+    <div class="items example-list" cdkDropList (cdkDropListDropped)="drop($event)">
+      <div class="task example-box" *ngFor="let task of tasks; let index = index" cdkDrag>
+        <div class="check">
+          <mat-checkbox class="example-margin check"
+                [checked]="task.bool"
+                color="warn"
+                (change)="check($event.checked,index)">
+          </mat-checkbox>
+        </div>
+        <div class="content">
+          {{task.content}}
+        </div>
+        <div class="controlls">
+            <mat-icon class="trash" (click)="delete(index)">delete</mat-icon>
+            <mat-icon class="edit" data-toggle="modal" data-target="#exampleModalCenter" (click)="openModal(index)">edit</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <mat-icon class="closeIcon" (click)="doSomethiing()">close</mat-icon>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="modalInp" [(ngModel)]="inpUpdate">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="doSomethiing()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="update()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
